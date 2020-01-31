@@ -1,0 +1,69 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:viz.data="sap.viz.ui5.data" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:micro="sap.suite.ui.microchart" xmlns:card="sap.f.cards" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:chart="sap.suite.ui.commons" controllerName="com.vesi.ZFIOAAN_PROJ_DISP.controller.Content"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<f:DynamicPage id="dynamicPageId" headerExpanded="true" fitContent="true" preserveHeaderStateOnScroll="true">
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showFilterConfiguration="false"
+						showGoOnFB="{ModelUserTab>/defaultIsSearchActif}" showRestoreButton="false" showClearButton="false">
+						<fb:filterItems>
+							<fb:FilterItem name="X" label="{i18n>txtFilterDivision}" mandatory="true">
+								<fb:control>
+									<ComboBox id="listDivision" selectionChange="handleDivisionSelectionChange" width="500px" selectedKey="{ModelUserCust>/defaultDivision}"
+										items="{ path: '/DivisionValueHelpSet' }">
+										<core:Item key="{Division}" text="{Division} - {DivisionName}"/>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="Y" label="{i18n>txtFilterPole}" mandatory="true">
+								<fb:control>
+									<ComboBox id="listPole" selectionChange="handlePoleSelectionChange" width="500px" selectedKey="{ModelUserCust>/defaultPole}"
+										items="{ path: '/PoleValueHelpSet' }">
+										<core:Item key="{Pole}" text="{Pole} - {PoleName}"/>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="A" label="{i18n>txtFilterCompany}" mandatory="true">
+								<fb:control>
+									<MultiComboBox id="listCompanyCode" selectionChange="handleSelectionChange" width="500px" selectedKeys="{ModelUserCust>/defaultCompanyCode}"
+										items="{ path: '/CompanyValueHelpSet' }">
+										<core:Item key="{CompanyCode}" text="{CompanyCode} - {CompanyCodeText}"/>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="B" label="{i18n>txtFilterBusinesUnit}">
+								<fb:control>
+									<MultiComboBox id="listBusinesUnit" width="500px" items="{ path: '/BusinesUnitValueHelpSet' }">
+										<core:Item key="{BusinesUnit}" text="{BusinesUnit} - {BusinesUnitText}"/>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="C" label="{i18n>txtFilterAnalyticalUnit}" visible="false">
+								<fb:control>
+									<MultiComboBox enabled="false" width="500px" items=" ">
+										<!--<core:Item key="{ProductId}" text="{Name}"/>-->
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="F" label="{i18n>txtFilteYear}" mandatory="true">
+								<fb:control>
+									<Select id="listYear" selectedKey="{globalData>/currentYear}" items="{ path: 'ModelYearCollection>/YearCollection' }">
+										<core:Item key="{ModelYearCollection>YearId}" text="{ModelYearCollection>YearText}"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+						</fb:filterItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Label text="jlj" />
+		</f:content>
+		<!-- DynamicPage Footer -->
+	</f:DynamicPage>
+</mvc:View>

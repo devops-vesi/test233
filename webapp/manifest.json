@@ -1,0 +1,142 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "com.vesi.ZFIOAAN_PROJ_DISP",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"dataSources": {
+			"ZFIORI_PS_EVENT_SRV": {
+				"uri": "/sap/opu/odata/sap/ZFIORI_PS_EVENT_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			},			
+			"mainService": {
+				"uri": "/sap/opu/odata/sap/ZSRDIP_ANA_MANAGE_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			},
+			"sourceTemplate": {
+				"id": "ui5template.basicSAPUI5ApplicationProject",
+				"version": "1.40.12"
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": false,
+		"rootView": {
+			"viewName": "com.vesi.ZFIOAAN_PROJ_DISP.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "App"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.1",
+			"libs": {
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.vesi.ZFIOAAN_PROJ_DISP.i18n.i18n"
+				}
+			},
+			"evListModel": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneTime",
+					"defaultCountMode": "Request",
+					"useBatch": false
+				},
+				"dataSource": "ZFIORI_PS_EVENT_SRV",
+				"preload": true
+			},			
+			"business": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/data/BusinessData.json"
+			},
+			"suppliers": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/data/Suppliers.json"
+			},			
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"useBatch": false
+				}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "com.vesi.ZFIOAAN_PROJ_DISP.view",
+				"controlAggregation": "pages",
+				"controlId": "idAppControl",
+				"clearControlAggregation": false
+			},
+			"routes": [{
+				"name": "Route_Content",
+				"pattern": "",
+				"titleTarget": "",
+				"greedy": false,
+				"target": [
+					"Target_Content"
+				]
+			}],
+			"targets": {
+				"Target_Content": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "Content",
+					"viewLevel": 1,
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"viewPath": "com.vesi.ZFIOAAN_PROJ_DISP.view"
+				}
+			}
+		}
+	}
+}

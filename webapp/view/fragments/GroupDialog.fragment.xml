@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		confirm="handleGroupDialogConfirm">
+		<groupItems>
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownSections}" key="BreakdownSection" selected="true" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownPeriods}" key="BreakdownPeriod" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownWeeks}" key="BreakdownWeek" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownWorkingDays}" key="BreakdownWorkingDay" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownnoofHours}" key="BreakdownnoofHour" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownHourstype}" key="BreakdownHourstype" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownValuatedAmount}" key="BreakdownValuatedAmount" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownEmployeesNo}" key="BreakdownEmployeesNo" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownLastFirstName}" key="BreakdownLastFirstName" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownEmployeeType}" key="BreakdownEmployeeType" />
+			<ViewSettingsItem text="{i18n>tableHoursBreakdownAnalyticalUnit}" key="BreakdownAnalyticalUnit" />	
+		</groupItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,591 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.suite.ui.commons" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	controllerName="com.vesi.ZFIOAAN_PROJ_DISP.controller.Content" xmlns:ux="sap.uxap" xmlns:mc="sap.suite.ui.microchart">
+	<f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" headerExpanded="{/headerExpanded}">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<!--				<f:heading>
+					<m:Title text="Standard"/>
+				</f:heading>-->
+				<!--				<f:expandedContent>
+					<m:Label text="This is a subheading"/>
+				</f:expandedContent>
+				<f:snappedContent>
+					<m:Label text="This is a subheading"/>
+				</f:snappedContent>-->
+				<f:content>
+					<m:OverflowToolbar>
+						<m:Title text="Hours Analysis" level="H1"/>
+						<m:GenericTag text="Budget Hours" status="Information" press="onGenericTagPress" design="StatusIconHidden">
+							<m:ObjectNumber number="2" unit="h" emphasized="false" state="Information"/>
+						</m:GenericTag>
+						<m:GenericTag text="Actual Hours" status="Warning" press="onGenericTagPress" design="StatusIconHidden">
+							<m:ObjectNumber number="2" unit="h" emphasized="false" state="Warning"/>
+						</m:GenericTag>
+						<m:GenericTag text="Final Hours" status="Warning" press="onGenericTagPress" design="StatusIconHidden">
+							<m:ObjectNumber number="2" unit="h" emphasized="false" state="Warning"/>
+						</m:GenericTag>
+					</m:OverflowToolbar>
+				</f:content>
+				<f:actions>
+					<m:ToolbarSpacer/>
+					<m:Button icon="sap-icon://filter-fields"/>
+					<m:Button icon="sap-icon://bar-chart"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<!-- DynamicPage Header -->
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<layout:HorizontalLayout allowWrapping="true">
+					<!--					<m:ObjectHeader responsive="true"
+						title="{ parts: [ 'i18n>processFlowChartsTitle', 'business>/year' ], formatter: 'jQuery.sap.formatMessage' }">-->
+					<m:ObjectHeader responsive="true">
+						<m:headerContainer>
+							<m:HeaderContainer scrollStep="200" scrollTime="500" showDividers="true">
+
+								<m:FlexBox width="20rem" height="10rem" alignItems="Center" class="sapUiSmallMargin">
+									<m:items>
+										<mc:InteractiveLineChart selectionChanged="selectionChanged" press="press" succeedingPoint="-50">
+											<mc:points>
+												<mc:InteractiveLineChartPoint value="52.1" label="May"/>
+												<mc:InteractiveLineChartPoint value="72" label="June"/>
+												<mc:InteractiveLineChartPoint value="-51.4" label="July"/>
+												<mc:InteractiveLineChartPoint value="19.9" label="Aug"/>
+												<mc:InteractiveLineChartPoint value="-61.9" label="Sep"/>
+												<mc:InteractiveLineChartPoint value="5" label="Oct"/>
+											</mc:points>
+										</mc:InteractiveLineChart>
+									</m:items>
+								</m:FlexBox>
+								
+								<m:FlexBox width="20rem" height="10rem" alignItems="Center" justifyContent="SpaceBetween">
+									<m:items>
+										<mc:InteractiveDonutChart selectionChanged="onSelectionChanged">
+											<mc:segments>
+												<mc:InteractiveDonutChartSegment label="Implementation Phase" value="40.0" displayedValue="40.0%"/>
+												<mc:InteractiveDonutChartSegment label="Design Phase" value="21.5" displayedValue="21.5%"/>
+												<mc:InteractiveDonutChartSegment label="Test Phase" value="38.5" displayedValue="38.5%"/>
+											</mc:segments>
+										</mc:InteractiveDonutChart>
+									</m:items>
+								</m:FlexBox>
+
+								<m:FlexBox width="20rem" height="10rem" alignItems="Center" class="sapUiSmallMargin">
+									<m:items>
+										<mc:InteractiveBarChart labelWidth="25%" selectionChanged="selectionChanged" press="press">
+											<mc:bars>
+												<mc:InteractiveBarChartBar label="Product 1" value="10"/>
+												<mc:InteractiveBarChartBar label="Product 2" value="20"/>
+												<mc:InteractiveBarChartBar label="Product 3" value="70"/>
+											</mc:bars>
+										</mc:InteractiveBarChart>
+									</m:items>
+								</m:FlexBox>
+								<!--								<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+									<m:Title text="{i18n>processFlowChartsShareOwnProduction}" class="sapUiSmallMargin"/>
+									<m:FlexBox width="5rem" height="5rem" renderType="Bare">
+										<mc:RadialMicroChart percentage="{business>/shareOwnProduction}"/>
+									</m:FlexBox>
+								</m:FlexBox>
+								<m:FlexBox width="16rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+									<m:Title
+										text="{ parts: [ 'i18n>processFlowChartsDeliveryTimeComparison', 'suppliers>/timeMeasure' ], formatter: 'jQuery.sap.formatMessage' }"
+										class="sapUiSmallMargin"/>
+									<m:FlexBox width="16rem" height="5rem" renderType="Bare">
+										<mc:ComparisonMicroChart isResponsive="true" press="press" data="{suppliers>/Suppliers}">
+											<mc:data>
+												<mc:ComparisonMicroChartData title="{suppliers>id}" value="{suppliers>deliveryTime}" displayValue="{suppliers>deliveryTime}"
+													color="{suppliers>deliveryTimeSemantics}"/>
+											</mc:data>
+										</mc:ComparisonMicroChart>
+									</m:FlexBox>
+								</m:FlexBox>
+								<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+									<m:Title text="{ parts: [ 'i18n>processFlowChartsProductionTime', 'business>/timeMeasure' ], formatter: 'jQuery.sap.formatMessage' }"
+										class="sapUiSmallMargin"/>
+									<m:FlexBox width="12rem" height="5rem" renderType="Bare">
+										<mc:DeltaMicroChart isResponsive="true" color="{business>/productionTimeComparisonCriticality}" value1="{business>/expectedProductionTime}"
+											value2="{business>/currentProductionTime}" title1="{i18n>processFlowChartsExpected}" title2="{i18n>processFlowChartsCurrent}"
+											displayValue1="{business>/expectedProductionTime}" displayValue2="{business>/currentProductionTime}"
+											deltaDisplayValue="{ parts: [ 'business>/expectedProductionTime', 'business>/currentProductionTime' ], formatter: '.getValuesDelta' }"/>
+									</m:FlexBox>
+								</m:FlexBox>
+								<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+									<m:Title text="{ parts: [ 'i18n>processFlowChartsFillLevel', 'business>/fillLevel/measure' ], formatter: 'jQuery.sap.formatMessage' }"
+										class="sapUiSmallMargin"/>
+									<m:FlexBox width="12rem" height="5rem" renderType="Bare">
+										<mc:LineMicroChart size="Responsive" threshold="{business>/fillLevel/threshold}" leftTopLabel="{business>/fillLevel/valueBegin}"
+											leftBottomLabel="{business>/fillLevel/timeBegin}" rightTopLabel="{business>/fillLevel/valueEnd}"
+											rightBottomLabel="{business>/fillLevel/timeEnd}" color="{business>/fillLevel/color}" showPoints="true"
+											points="{ path: 'business>/fillLevel/timeSeries', templateShareable: true }">
+											<mc:LineMicroChartPoint x="{business>time}" y="{business>level}"/>
+										</mc:LineMicroChart>
+									</m:FlexBox>
+								</m:FlexBox>-->
+							</m:HeaderContainer>
+						</m:headerContainer>
+					</m:ObjectHeader>
+				</layout:HorizontalLayout>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<m:Table id="TableHoursBreakdown" width="100%" noDataText="No data" showSeparators="All" growing="true" growingScrollToLoad="true"
+				growingThreshold="3" mode="None" items="{ path:'evListModel>/GetHourDetailsSet'}">
+				<m:headerToolbar>
+					<m:OverflowToolbar design="Transparent" style="Clear">
+						<m:content>
+							<m:Title id="HoursTableTitle" textAlign="Begin" text="{i18n>tableHoursBreakdowntIitle}"/>
+							<m:ToolbarSpacer/>
+							<m:Button tooltip="{i18n>tableHoursBreakdownExport}" icon="sap-icon://excel-attachment" press="handleExportPressed"/>
+							<m:Button tooltip="{i18n>tableHoursBreakdownSort}" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+							<m:Button tooltip="{i18n>tableHoursBreakdownFilter}" icon="sap-icon://filter" press="handleFilterButtonPressed"/>
+							<m:Button tooltip="{i18n>tableHoursBreakdownGroup}" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
+						</m:content>
+					</m:OverflowToolbar>
+				</m:headerToolbar>
+				<m:columns>
+					<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownSections}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownPeriods}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownWeeks}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownWorkingDays}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownnoofHours}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownHourstype}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownValuatedAmount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownEmployeesNo}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownLastFirstName}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownAnalyticalUnit}" width="auto" maxLines="2" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+				</m:columns>
+				<m:items>
+					<m:ColumnListItem type="Active">
+						<m:cells>
+							<m:Text text="{parts:['evListModel>Section','evListModel>IDUnique'],formatter:'.formatter.hourTotalFormatter'}" width="auto" maxLines="1"
+								wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>Period}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>Week}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>WorkingDay}" width="auto" maxLines="1" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:ObjectNumber number="{evListModel>HourNum}" unit="h" emphasized="true"
+								state="{path:'evListModel>HourNum',formatter:'.formatter.stateFormter'}"/>
+							<m:Text text="{evListModel>HourType}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:ObjectNumber number="{path: 'evListModel>ValueAmount', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}"
+								unit="€" emphasized="true" state="None"/>
+							<m:Text text="{evListModel>EmployeeNum}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>LastFirstName}" textAlign="Begin" width="auto" wrapping="false" visible="true"/>
+							<m:Text text="{evListModel>AnalyticalUnit}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:cells>
+					</m:ColumnListItem>
+				</m:items>
+			</m:Table>
+		</f:content>
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<m:OverflowToolbar>
+				<m:Button icon="sap-icon://message-popup" text="{/messagesLength}" type="Emphasized" press="onMessageButtonPress"
+					visible="{= !!${/messagesLength}}"/>
+				<m:ToolbarSpacer/>
+				<m:Button type="Accept" text="Accept"/>
+				<m:Button type="Reject" text="Reject"/>
+			</m:OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+	<!--		<ux:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false">
+		<ux:headerTitle>
+			<ux:ObjectPageDynamicHeaderTitle>
+				<ux:expandedHeading>
+					<m:Title text="Denise Smith" wrapping="true"/>
+				</ux:expandedHeading>
+				<ux:snappedHeading>
+					<m:Title text="Denise Smith" wrapping="true"/>
+				</ux:snappedHeading>
+				<ux:actions>
+					<ux:ObjectPageHeaderActionButton text="Edit" type="Emphasized" hideText="false"/>
+					<ux:ObjectPageHeaderActionButton type="Transparent" text="Delete" hideText="false" hideIcon="true"/>
+					<ux:ObjectPageHeaderActionButton type="Transparent" text="Copy" hideText="false" hideIcon="true"/>
+					<ux:ObjectPageHeaderActionButton type="Transparent" text="Add" hideText="false" hideIcon="true"/>
+					<ux:ObjectPageHeaderActionButton icon="sap-icon://action" type="Transparent" text="Share" tooltip="action"/>
+				</ux:actions>
+				<ux:navigationActions>
+					<ux:ObjectPageHeaderActionButton icon="sap-icon://slim-arrow-up" type="Transparent" tooltip="slim-arrow-up"/>
+					<ux:ObjectPageHeaderActionButton icon="sap-icon://slim-arrow-down" type="Transparent" tooltip="slim-arrow-down"/>
+				</ux:navigationActions>
+				<ux:content>
+					<m:GenericTag text="Material Shortage" status="Warning"/>
+				</ux:content>
+			</ux:ObjectPageDynamicHeaderTitle>
+		</ux:headerTitle>
+		<ux:headerContent>
+			<layout:HorizontalLayout allowWrapping="true">
+				<m:ObjectHeader responsive="true"
+					title="{ parts: [ 'i18n>processFlowChartsTitle', 'business>/year' ], formatter: 'jQuery.sap.formatMessage' }">
+					<m:headerContainer>
+						<m:HeaderContainer scrollStep="200" scrollTime="500" showDividers="true">
+							<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+								<m:Title text="{i18n>processFlowChartsShareOwnProduction}" class="sapUiSmallMargin"/>
+								<m:FlexBox width="5rem" height="5rem" renderType="Bare">
+									<mc:RadialMicroChart percentage="{business>/shareOwnProduction}"/>
+								</m:FlexBox>
+							</m:FlexBox>
+							<m:FlexBox width="16rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+								<m:Title
+									text="{ parts: [ 'i18n>processFlowChartsDeliveryTimeComparison', 'suppliers>/timeMeasure' ], formatter: 'jQuery.sap.formatMessage' }"
+									class="sapUiSmallMargin"/>
+								<m:FlexBox width="16rem" height="5rem" renderType="Bare">
+									<mc:ComparisonMicroChart isResponsive="true" press="press" data="{suppliers>/Suppliers}">
+										<mc:data>
+											<mc:ComparisonMicroChartData title="{suppliers>id}" value="{suppliers>deliveryTime}" displayValue="{suppliers>deliveryTime}"
+												color="{suppliers>deliveryTimeSemantics}"/>
+										</mc:data>
+									</mc:ComparisonMicroChart>
+								</m:FlexBox>
+							</m:FlexBox>
+							<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+								<m:Title text="{ parts: [ 'i18n>processFlowChartsProductionTime', 'business>/timeMeasure' ], formatter: 'jQuery.sap.formatMessage' }"
+									class="sapUiSmallMargin"/>
+								<m:FlexBox width="12rem" height="5rem" renderType="Bare">
+									<mc:DeltaMicroChart isResponsive="true" color="{business>/productionTimeComparisonCriticality}" value1="{business>/expectedProductionTime}"
+										value2="{business>/currentProductionTime}" title1="{i18n>processFlowChartsExpected}" title2="{i18n>processFlowChartsCurrent}"
+										displayValue1="{business>/expectedProductionTime}" displayValue2="{business>/currentProductionTime}"
+										deltaDisplayValue="{ parts: [ 'business>/expectedProductionTime', 'business>/currentProductionTime' ], formatter: '.getValuesDelta' }"/>
+								</m:FlexBox>
+							</m:FlexBox>
+							<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+								<m:Title text="{ parts: [ 'i18n>processFlowChartsFillLevel', 'business>/fillLevel/measure' ], formatter: 'jQuery.sap.formatMessage' }"
+									class="sapUiSmallMargin"/>
+								<m:FlexBox width="12rem" height="5rem" renderType="Bare">
+									<mc:LineMicroChart size="Responsive" threshold="{business>/fillLevel/threshold}" leftTopLabel="{business>/fillLevel/valueBegin}"
+										leftBottomLabel="{business>/fillLevel/timeBegin}" rightTopLabel="{business>/fillLevel/valueEnd}"
+										rightBottomLabel="{business>/fillLevel/timeEnd}" color="{business>/fillLevel/color}" showPoints="true"
+										points="{ path: 'business>/fillLevel/timeSeries', templateShareable: true }">
+										<mc:LineMicroChartPoint x="{business>time}" y="{business>level}"/>
+									</mc:LineMicroChart>
+								</m:FlexBox>
+							</m:FlexBox>
+						</m:HeaderContainer>
+					</m:headerContainer>
+				</m:ObjectHeader>
+			</layout:HorizontalLayout>
+		</ux:headerContent>
+	</ux:ObjectPageLayout>
+
+		<m:Table id="TableHoursBreakdown" visible="true" width="90%" noDataText="No data" showSeparators="All" growing="true" growingScrollToLoad="true"
+			growingThreshold="3"  mode="None" class="sapUiCompSmartTable" items="{ path:'evListModel>/GetHourDetailsSet'}">
+			<m:headerToolbar>
+				<m:OverflowToolbar design="Transparent" class="sapUiCompSmartTableToolbar" style="Clear">
+					<m:content>
+						<m:Title id="HoursTableTitle" textAlign="Begin" text="{i18n>tableHoursBreakdowntIitle}"/>
+						<m:ToolbarSpacer/>
+					</m:content>
+				</m:OverflowToolbar>
+			</m:headerToolbar>
+			<m:columns>
+				<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownSections}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownPeriods}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownWeeks}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownWorkingDays}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownnoofHours}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownHourstype}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownValuatedAmount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownEmployeesNo}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownLastFirstName}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+				<m:Column hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<m:header>
+						<m:Text text="{i18n>tableHoursBreakdownAnalyticalUnit}" width="auto" maxLines="2" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:header>
+					<m:footer/>
+				</m:Column>
+			</m:columns>
+			<m:items>
+				<m:ColumnListItem type="Active">
+					<m:cells>
+						<m:Text text="Test" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						<m:Text text="{evListModel>Period}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						<m:Text text="{evListModel>Week}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						<m:Text text="{evListModel>WorkingDay}" width="auto" maxLines="1" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						<m:ObjectNumber number="{evListModel>HourNum}" unit="h" emphasized="true"
+							state="{path:'evListModel>HourNum',formatter:'.formatter.stateFormter'}"/>
+						<m:Text text="{evListModel>HourType}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						<m:ObjectNumber number="{path: 'evListModel>ValueAmount', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}"
+							unit="€" emphasized="true" state="None"/>
+						<m:Text text="{evListModel>EmployeeNum}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						<m:Text text="{evListModel>LastFirstName}" textAlign="Begin" width="auto" wrapping="false" visible="true"/>
+						<m:Text text="{evListModel>AnalyticalUnit}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+							visible="true"/>
+					</m:cells>
+				</m:ColumnListItem>
+			</m:items>
+		</m:Table>-->
+	<!--	<m:Page title="{i18n>tableHoursBreakdowntIitle}" backgroundDesign="Solid">
+		<m:content>
+			<m:ObjectHeader responsive="true"
+				title="{ parts: [ 'i18n>processFlowChartsTitle', 'business>/year' ], formatter: 'jQuery.sap.formatMessage' }">
+				<m:headerContainer>
+					<m:HeaderContainer scrollStep="200" scrollTime="500" showDividers="true">
+						<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+							<m:Title text="{i18n>processFlowChartsShareOwnProduction}" class="sapUiSmallMargin"/>
+							<m:FlexBox width="5rem" height="5rem" renderType="Bare">
+								<mc:RadialMicroChart percentage="{business>/shareOwnProduction}"/>
+							</m:FlexBox>
+						</m:FlexBox>
+						<m:FlexBox width="16rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+							<m:Title
+								text="{ parts: [ 'i18n>processFlowChartsDeliveryTimeComparison', 'suppliers>/timeMeasure' ], formatter: 'jQuery.sap.formatMessage' }"
+								class="sapUiSmallMargin"/>
+							<m:FlexBox width="16rem" height="5rem" renderType="Bare">
+								<mc:ComparisonMicroChart isResponsive="true" press="press" data="{suppliers>/Suppliers}">
+									<mc:data>
+										<mc:ComparisonMicroChartData title="{suppliers>id}" value="{suppliers>deliveryTime}" displayValue="{suppliers>deliveryTime}"
+											color="{suppliers>deliveryTimeSemantics}"/>
+									</mc:data>
+								</mc:ComparisonMicroChart>
+							</m:FlexBox>
+						</m:FlexBox>
+						<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+							<m:Title text="{ parts: [ 'i18n>processFlowChartsProductionTime', 'business>/timeMeasure' ], formatter: 'jQuery.sap.formatMessage' }"
+								class="sapUiSmallMargin"/>
+							<m:FlexBox width="12rem" height="5rem" renderType="Bare">
+								<mc:DeltaMicroChart isResponsive="true" color="{business>/productionTimeComparisonCriticality}" value1="{business>/expectedProductionTime}"
+									value2="{business>/currentProductionTime}" title1="{i18n>processFlowChartsExpected}" title2="{i18n>processFlowChartsCurrent}"
+									displayValue1="{business>/expectedProductionTime}" displayValue2="{business>/currentProductionTime}"
+									deltaDisplayValue="{ parts: [ 'business>/expectedProductionTime', 'business>/currentProductionTime' ], formatter: '.getValuesDelta' }"/>
+							</m:FlexBox>
+						</m:FlexBox>
+						<m:FlexBox width="12rem" height="9rem" alignItems="Center" justifyContent="Center" direction="Column" renderType="Bare">
+							<m:Title text="{ parts: [ 'i18n>processFlowChartsFillLevel', 'business>/fillLevel/measure' ], formatter: 'jQuery.sap.formatMessage' }"
+								class="sapUiSmallMargin"/>
+							<m:FlexBox width="12rem" height="5rem" renderType="Bare">
+								<mc:LineMicroChart size="Responsive" threshold="{business>/fillLevel/threshold}" leftTopLabel="{business>/fillLevel/valueBegin}"
+									leftBottomLabel="{business>/fillLevel/timeBegin}" rightTopLabel="{business>/fillLevel/valueEnd}"
+									rightBottomLabel="{business>/fillLevel/timeEnd}" color="{business>/fillLevel/color}" showPoints="true"
+									points="{ path: 'business>/fillLevel/timeSeries', templateShareable: true }">
+									<mc:LineMicroChartPoint x="{business>time}" y="{business>level}"/>
+								</mc:LineMicroChart>
+							</m:FlexBox>
+						</m:FlexBox>
+					</m:HeaderContainer>
+				</m:headerContainer>
+			</m:ObjectHeader>
+			<m:Table id="TableHoursBreakdown" width="100%" noDataText="No data" showSeparators="All" growing="true" growingScrollToLoad="true"
+				growingThreshold="3" mode="None" class="sapUiCompSmartTable" items="{ path:'evListModel>/GetHourDetailsSet'}">
+				<m:headerToolbar>
+					<m:OverflowToolbar design="Transparent" class="sapUiCompSmartTableToolbar" style="Clear">
+						<m:content>
+							<m:Title id="HoursTableTitle" textAlign="Begin" text="{i18n>tableHoursBreakdowntIitle}"/>
+							<m:ToolbarSpacer/>
+							<m:Button tooltip="View Sort Settings" icon="sap-icon://excel-attachment" press="handleSortButtonPressed"/>
+							<m:Button tooltip="View Sort Settings" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+							<m:Button tooltip="View Filter Settings" icon="sap-icon://filter" press="handleFilterButtonPressed"/>
+							<m:Button tooltip="View Group Settings" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
+						</m:content>
+					</m:OverflowToolbar>
+				</m:headerToolbar>
+				<m:columns>
+					<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownSections}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownPeriods}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownWeeks}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownWorkingDays}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownnoofHours}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownHourstype}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownValuatedAmount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownEmployeesNo}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownLastFirstName}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+					<m:Column hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+						<m:header>
+							<m:Text text="{i18n>tableHoursBreakdownAnalyticalUnit}" width="auto" maxLines="2" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:header>
+						<m:footer/>
+					</m:Column>
+				</m:columns>
+				<m:items>
+					<m:ColumnListItem type="Active">
+						<m:cells>
+							<m:Text text="Test" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>Period}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>Week}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>WorkingDay}" width="auto" maxLines="1" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:ObjectNumber number="{evListModel>HourNum}" unit="h" emphasized="true"
+								state="{path:'evListModel>HourNum',formatter:'.formatter.stateFormter'}"/>
+							<m:Text text="{evListModel>HourType}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:ObjectNumber number="{path: 'evListModel>ValueAmount', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}"
+								unit="€" emphasized="true" state="None"/>
+							<m:Text text="{evListModel>EmployeeNum}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<m:Text text="{evListModel>LastFirstName}" textAlign="Begin" width="auto" wrapping="false" visible="true"/>
+							<m:Text text="{evListModel>AnalyticalUnit}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"
+								visible="true"/>
+						</m:cells>
+					</m:ColumnListItem>
+				</m:items>
+			</m:Table>
+		</m:content>
+	</m:Page>-->
+</mvc:View>

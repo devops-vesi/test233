@@ -1,0 +1,147 @@
+<m:VBox height="auto" width="100%" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:m="sap.m"
+	xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:viz.data="sap.viz.ui5.data"
+	xmlns:viz="sap.viz.ui5.controls" xmlns:micro="sap.suite.ui.microchart" xmlns:card="sap.f.cards"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns="sap.suite.ui.commons">
+	<layout:BlockLayout background="Dashboard">
+		<layout:BlockLayoutRow>
+			<layout:BlockLayoutCell>
+				<m:VBox width="100%" height="30%">
+					<ChartContainer id="idChartContainerOrderSend" title="{i18n>txtTitleErrorTackDash}" showZoom="false" showFullScreen="true"
+						showPersonalization="false" autoAdjustHeight="false">
+						<ChartContainerContent>
+							<content>
+								<viz:Popover id="idPopOverOrderSend"></viz:Popover>
+								<viz:VizFrame id="idVizFrameOrderSend" busy="false" busyIndicatorDelay="1000" visible="true"
+									vizProperties="{ title: {text : ' ', visible : true} }" uiConfig="{ 'applicationSet': 'fiori' }" vizType="line" legendVisible="true">
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/gErrorTrackingOrderSendSet}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Month" value="{MonthNumber}"/>
+												<viz.data:DimensionDefinition name="Canal" value="{Canal}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Volume" value="{Volume}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem id="feedTargetValuesOrderSend" uid="targetValues" type="Measure" values="Volume"/>
+										<viz.feeds:FeedItem id='valueAxisFeedOrderSend' uid="valueAxis" type="Measure" values="Volume"/>
+										<viz.feeds:FeedItem id='categoryAxisFeedOrderSend' uid="categoryAxis" type="Dimension" values="Month"/>
+										<viz.feeds:FeedItem id='colorAxisFeedOrderSend' uid="color" type="Dimension" values="Canal"/>
+									</viz:feeds>
+								</viz:VizFrame>
+							</content>
+						</ChartContainerContent>
+						<customIcons>
+							<core:Icon id="customExcelIconOrderSend" src="sap-icon://excel-attachment" tooltip="{i18n>txtExport}"
+								press="onCustomExportTrackOrderSendingPress"></core:Icon>
+							<core:Icon id="customNavigationIconOrderSend" src="sap-icon://table-view" tooltip="{i18n>txtNavigateToDetail}"
+								press="onCustomActionErrorTrackOrderSendingPress"></core:Icon>
+						</customIcons>
+					</ChartContainer>
+				</m:VBox>
+			</layout:BlockLayoutCell>
+			<layout:BlockLayoutCell>
+				<m:VBox width="100%" height="30%">
+					<ChartContainer id="idChartContainerOrderSend1" title="{i18n>txtTitleMonitoringStatus}" showFullScreen="true" showZoom="false" showPersonalization="false" autoAdjustHeight="false">
+						<content>
+							<ChartContainerContent icon="sap-icon://donut-chart">
+								<content>
+									<viz:Popover id="idPopOverOrderSend1"></viz:Popover>
+									<viz:VizFrame id="idVizFrameOrderSend1" busy="false" busyIndicatorDelay="1000" visible="true"
+										vizProperties="{ title: {text : ' ', visible : true}, plotArea: { dataLabel: { visible: true, hideWhenOverlap: false, type:'value'}, drawingEffect: 'glossy'}, legendGroup:{layout:{position: 'left'}} }"
+										 uiConfig="{ 'applicationSet': 'fiori' }" vizType="donut" legendVisible="true">
+										<viz:dataset>
+											<viz.data:FlattenedDataset data="{/gMonitoringStatusOrdSendSet}">
+												<viz.data:dimensions>
+													<viz.data:DimensionDefinition name="StatusType" value="{StatusType}"/>
+												</viz.data:dimensions>
+												<viz.data:measures>
+													<viz.data:MeasureDefinition name="TotalTool" value="{TotalTool}"/>
+												</viz.data:measures>
+											</viz.data:FlattenedDataset>
+										</viz:dataset>
+										<viz:feeds>
+											<viz.feeds:FeedItem id="feedTargetValuesOrderSend1" uid="size" type="Measure" values="TotalTool"/>
+											<viz.feeds:FeedItem id='colorAxisFeedOrderSend1' uid="color" type="Dimension" values="StatusType"/>
+										</viz:feeds>
+									</viz:VizFrame>
+								</content>
+							</ChartContainerContent>
+						</content>
+					</ChartContainer>
+				</m:VBox>
+			</layout:BlockLayoutCell>
+		</layout:BlockLayoutRow>
+		<layout:BlockLayoutRow>
+			<layout:BlockLayoutCell>
+				<m:VBox width="100%" height="30%">
+					<ChartContainer id="idChartContainerOrderSend2" title="{i18n>txtTitlePerfEvol}" showFullScreen="true" showZoom="false"
+						showPersonalization="false" autoAdjustHeight="false">
+						<ChartContainerContent>
+							<content>
+								<viz:Popover id="idPopOverOrderSend2"></viz:Popover>
+								<viz:VizFrame id="idVizFrameOrderSend2" width="auto" busy="false" busyIndicatorDelay="1000" visible="true"
+									vizProperties="{ title: {text : ' ', visible : true}, plotArea: { dataLabel: { visible: true, hideWhenOverlap: false, type:'percentage' }} }"
+									uiConfig="{ 'applicationSet': 'fiori' }" vizType="100_stacked_column" legendVisible="true">
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/gPerfEvolOrderSendSet}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Month" value="{Month}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="EDI" value="{EDI}"/>
+												<viz.data:MeasureDefinition name="MANUAL" value="{MANUAL}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem id="feedTargetValuesOrderSend2" uid="valueAxis" type="Measure" values="EDI,MANUAL"/>
+										<viz.feeds:FeedItem id='colorAxisFeedOrderSend2' uid="categoryAxis" type="Dimension" values="Month"/>
+									</viz:feeds>
+								</viz:VizFrame>
+							</content>
+						</ChartContainerContent>
+						<customIcons>
+							<core:Icon src="sap-icon://excel-attachment" tooltip="{i18n>txtExport}" press="onCustomExportPerfEvolutionOrderSendPress"></core:Icon>
+							<core:Icon src="sap-icon://table-view" tooltip="{i18n>txtNavigateToDetail}" press="onCustomActionPerfEvolutionOrderSendPress"></core:Icon>
+						</customIcons>
+					</ChartContainer>
+				</m:VBox>
+			</layout:BlockLayoutCell>
+			<layout:BlockLayoutCell>
+				<m:VBox width="100%" height="30%">
+					<ChartContainer id="idChartContainerOrderSend3" title="{i18n>txtTitleChannelDist}" showFullScreen="true" showZoom="false"
+						showPersonalization="false" autoAdjustHeight="false">
+						<content>
+							<ChartContainerContent icon="sap-icon://donut-chart">
+								<content>
+									<viz:Popover id="idPopOverOrderSend3"></viz:Popover>
+									<viz:VizFrame id="idVizFrameOrderSend3" busy="false" busyIndicatorDelay="1000" visible="true"
+										vizProperties="{ title: {text : ' ', visible : true}, plotArea: { dataLabel: { visible: true, hideWhenOverlap: false, type:'percentage'}, drawingEffect: 'glossy'} }"
+										uiConfig="{ 'applicationSet': 'fiori' }" vizType="donut" legendVisible="true">
+										<viz:dataset>
+											<viz.data:FlattenedDataset data="{/gChannelDistOrderSendingSet}">
+												<viz.data:dimensions>
+													<viz.data:DimensionDefinition name="Tool" value="{Tool}"/>
+												</viz.data:dimensions>
+												<viz.data:measures>
+													<viz.data:MeasureDefinition name="TotalTool" value="{TotalTool}"/>
+												</viz.data:measures>
+											</viz.data:FlattenedDataset>
+										</viz:dataset>
+										<viz:feeds>
+											<viz.feeds:FeedItem id="feedTargetValuesOrderSend3" uid="size" type="Measure" values="TotalTool"/>
+											<viz.feeds:FeedItem id='colorAxisFeedOrderSend3' uid="color" type="Dimension" values="Tool"/>
+										</viz:feeds>
+									</viz:VizFrame>
+								</content>
+							</ChartContainerContent>
+						</content>
+					</ChartContainer>
+				</m:VBox>
+			</layout:BlockLayoutCell>
+		</layout:BlockLayoutRow>
+	</layout:BlockLayout>
+</m:VBox>
